@@ -1,0 +1,33 @@
+version: 1
+
+modules:
+  rag:
+    enabled: true
+
+# Do NOT block builds initially
+fail_on_severity: CRITICAL
+
+# Ignore obvious non-prod paths
+ignore_paths:
+  - tests/**
+  - .github/**
+  - examples/**
+  - docs/**
+
+# Rule-level tuning
+rules:
+
+  # Ignore HTTP for localhost only
+  RAG.Configuration.InsecureEndpoint:
+    ignore_if:
+      contains: "localhost"
+
+  # Tool allow-list only matters for real agents
+  RAG.AgentControl.MissingAllowlist:
+    enforce_only_in:
+      - src/agent/**
+      - src/runtime/**
+
+  # Prompt-only findings should not fail builds
+  RAG.Prompt.InjectionSurface:
+    severity_override: MEDIUM
