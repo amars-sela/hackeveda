@@ -1,0 +1,25 @@
+HOW TO RUN - Government Tender Database Viewer
+==============================================
+
+REQUIREMENTS:
+- Python 3.9+
+- pip packages: flask, flask-cors, google-generativeai
+
+SETUP (one-time):
+1. cd /Users/apple/Desktop/hackveda
+2. pip install -r requirements.txt
+
+RUN:
+1. cd /Users/apple/Desktop/hackveda
+2. python3 app.py
+
+ACCESS:
+Open browser: http://localhost:5050
+
+FEATURES:
+- Filter Mode: Use dropdowns to filter tenders
+- AI Mode: Ask natural language queries like "show tenders over 1000000"
+- Click any card to view details and use AI Analyze for insights
+
+STOP:
+Press Ctrl+C in terminal or close terminal window

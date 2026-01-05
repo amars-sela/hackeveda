@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HackDemo - Database Viewer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loader-overlay" id="loader">
+        <div class="spinner"></div>
+        <div class="loader-text">Loading data...</div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-modal">
+            <h2 id="authTitle">Login</h2>
+            <input type="text" id="authUsername" placeholder="Username" />
+            <input type="password" id="authPassword" placeholder="Password" />
+            <button onclick="handleAuth()" id="authBtn">Login</button>
+            <p class="auth-switch">Don't have an account? <span onclick="toggleAuthMode()">Sign Up</span></p>
+            <p class="auth-error" id="authError"></p>
+        </div>
+    </div>
+
+    <div class="header">
+        <img src="/logo.png" alt="Logo" class="header-logo">
+        <div class="header-right">
+            <div class="user-info" id="userInfo" style="display:none;">
+                <span id="usernameDisplay"></span>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- Mode Toggle -->
+        <div class="mode-toggle">
+            <button class="mode-btn active" onclick="switchMode('filter')">Filter Mode</button>
+            <button class="mode-btn" onclick="switchMode('ai')">AI Mode</button>
+        </div>
+        
+        <!-- AI Chatbot Section -->
+        <div class="ai-search-section" id="aiSearchSection">
+            <div class="chat-messages" id="chatMessages">
+                <div class="chat-message bot">
+                    <div class="msg-bubble">Hello! I can help you find tenders. Try asking:<br>• "Show defence ministry tenders"<br>• "Tenders above 10 lakhs"<br>• "IT tenders in Mumbai"</div>
+                </div>
+            </div>
+            <div class="chat-input-box">
+                <input type="text" id="aiPrompt" placeholder="Ask about tenders..." onkeypress="if(event.key==='Enter')searchWithAI()" />
+                <button onclick="searchWithAI()" id="aiSearchBtn">Send</button>
+                <button onclick="newSession()" class="new-session-btn" title="Start new conversation">New Session</button>
+            </div>
+        </div>
+        
+        <!-- Filter Section -->
+        <div class="filters-section" id="filterSection">
+            <div class="filters-header">
+                <h2>Filters</h2>
+            </div>
+            <div class="filters" id="filters"></div>
+            <div class="actions">
+                <button onclick="applyFilters()">Apply Filters</button>
+                <button class="clear-btn" onclick="clearFilters()">Clear All</button>
+            </div>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-value" id="totalRecords">0</div>
+                <div class="stat-label">Total Records</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="filteredRecords">0</div>
+                <div class="stat-label">Filtered Results</div>
+            </div>
+        </div>
+        
+        <div class="cards-grid" id="cardsGrid"></div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <div class="modal-title" id="modalTitle"></div>
+            <button class="ai-analyze-btn" id="aiAnalyzeBtn" onclick="analyzeTender()">AI Analyze</button>
+            <div class="ai-analysis" id="aiAnalysis"></div>
+            <div class="modal-content" id="modalContent"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
